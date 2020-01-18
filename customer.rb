@@ -23,6 +23,10 @@ class Customer
   #This functions calls the @songs array from within the
   #karaoke class
 
+  def remove_cash_from_wallet(item)
+    @wallet -= item.cost
+  end
+
 
 
 

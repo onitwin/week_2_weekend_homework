@@ -51,6 +51,26 @@ class Karaoke
 
 
 
+    #extension
+
+    # def charge_for_stuff(tab_name,stuff)
+    #     tab_name.add_money_to_till(stuff)#method calls stuff.price
+    # end #testing action of only adding cash to till
+
+    def charge_for_stuff(tab_name,stuff,cust)
+      if cust.wallet > stuff.cost
+        tab_name.add_money_to_till(stuff)#method calls stuff.price
+        cust.remove_cash_from_wallet(stuff)
+      else
+        return "Sorry, you don't have enough money"
+      end
+    end
+
+
+
+
+
+
 
 
 

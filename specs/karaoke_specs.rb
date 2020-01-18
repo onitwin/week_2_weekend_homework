@@ -5,16 +5,19 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 require_relative('../karaoke')
 require_relative('../songs')
 require_relative('../customer')
+require_relative('../tab')
 
 class KaraokeTest < MiniTest::Test
 
 
   def setup
     @venue=Karaoke.new('Lungs',3,10,"Rock")
+    @charges=Tab.new
     @song2=Song.new("Used for Glue","Rival Schools",3.19,"Rock")
     @song5=Song.new("Born to Die","Lana Del Ray",4.10,"Pop")
     @song9=Song.new("Ring of Fire","Johnny Cash",2.38,"Country")
     @tommy=Customer.new("Tommy",76,"Everlong")
+    @joseph=Customer.new("Joseph",5,"Everlong")
     @gina=Customer.new("Gina",300,"Total Eclipse of the Heart")
   end
 
@@ -106,6 +109,21 @@ class KaraokeTest < MiniTest::Test
     assert_equal(3,@venue.songs.length)#check array is 3 items long- passes
     @venue.remove_specific_song(@song5)#remove song
     assert_equal(2,@venue.songs.length)#check list reduced in length
+  end
+
+  # def test_to_access_tab #this function calls and uses 'Tab' class to take and hold cash
+  #   @venue.charge_for_stuff(@charges,@venue)
+  #   assert_equal(10,@charges.till)
+  # end #this method works, but creating fresh method to only charge if cust has cash
+
+  def test_charge_cust_cust_has_cash
+    @venue.charge_for_stuff(@charges,@venue,@gina)
+    assert_equal(290,@gina.wallet)
+  end
+
+  def test_charge_cust_cant_pay
+    @venue.charge_for_stuff(@charges,@venue,@joseph)
+    assert_equal("Sorry, you don't have enough money",@venue.charge_for_stuff(@charges,@venue,@joseph))
   end
 
 

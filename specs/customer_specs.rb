@@ -5,6 +5,7 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 require_relative('../karaoke')
 require_relative('../songs')
 require_relative('../customer')
+require_relative('../tab')
 
 class CustomerTest < MiniTest::Test
 
@@ -40,6 +41,14 @@ class CustomerTest < MiniTest::Test
     @venue.add_song_to_room(@song1)#add song that is not the favourite
     assert_equal("Dammit",@gina.check_for_fave_song(@venue))
   end
+
+  def test_remove_cash_from_wallet
+    assert_equal(300,@gina.wallet) #check starting balance in customer wallet
+    @gina.remove_cash_from_wallet(@venue)#remove cash
+    assert_equal(290,@gina.wallet)#check ending balance
+  end
+
+
 
 
 
